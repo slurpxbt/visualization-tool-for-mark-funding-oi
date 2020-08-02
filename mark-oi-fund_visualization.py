@@ -8,8 +8,8 @@ import matplotlib.pyplot as plt
 # --------------------------------------------------
 
 # ------------ data file paths
-btc_data_path = "D:/files\Finance/trading/skripte/unfinished projects/visualization tool for oi-mark-funding/data storage/avgMark_cumOI_oiWfunding_storage.txt"
-eth_data_path = "D:/files\Finance/trading/skripte/unfinished projects/visualization tool for oi-mark-funding/data storage/avgMark_cumOI_oiWfunding_storage_eth.txt"
+btc_data_path = "D:/files/Finance/trading/skripte/unfinished projects/visualization tool for oi-mark-funding/data storage/avgMark_cumOI_oiWfunding_storage.txt"
+eth_data_path = "D:/files/Finance/trading/skripte/unfinished projects/visualization tool for oi-mark-funding/data storage/avgMark_cumOI_oiWfunding_storage_eth.txt"
 # ---------------------------
 
 
@@ -64,9 +64,9 @@ for i in range(len(btc_array_data)):
 
 
 
-btc_net_oi_changes[0] = btc_net_oi_changes[1]           # for loops uses last value from array so 1st value is completely wrong that's why I replace it with most logic one
-btc_pct_oi_changes[0] = btc_pct_oi_changes[1]           # for loops uses last value from array so 1st value is completely wrong that's why I replace it with most logic one
-btc_price_pct_changes[0] = btc_price_pct_changes[1]     # for loops uses last value from array so 1st value is completely wrong that's why I replace it with most logic one
+btc_net_oi_changes[0] = btc_net_oi_changes[1]           
+btc_pct_oi_changes[0] = btc_pct_oi_changes[1]           
+btc_price_pct_changes[0] = btc_price_pct_changes[1]     
 
 
 # ---- ETH calcs ----
@@ -87,9 +87,9 @@ for i in range(len(eth_array_data)):
 
 
 
-eth_net_oi_changes[0] = eth_net_oi_changes[1]           # for loops uses last value from array so 1st value is completely wrong that's why I replace it with most logic one
-eth_pct_oi_changes[0] = eth_pct_oi_changes[1]           # for loops uses last value from array so 1st value is completely wrong that's why I replace it with most logic one
-eth_price_pct_changes[0] = eth_price_pct_changes[1]     # for loops uses last value from array so 1st value is completely wrong that's why I replace it with most logic one
+eth_net_oi_changes[0] = eth_net_oi_changes[1]           
+eth_pct_oi_changes[0] = eth_pct_oi_changes[1]          
+eth_price_pct_changes[0] = eth_price_pct_changes[1]     
 
 
 # ------------- whole market positions
@@ -152,7 +152,6 @@ whole_Mkt_pct_oi_changes[0] = whole_Mkt_pct_oi_changes[1]   # foor loops uses la
 
 # BTC --------------------------------
 
-# -> za total_oi_chg, pct_oi_chg, funding ===> nared histograme da bo bol vidno vse skup pa prilagod skale pa velikosti grafov na sliki
 
 fig = plt.figure()
 
@@ -194,6 +193,8 @@ plt.show()
 
 # ETH --------------------------------
 
+
+
 fig = plt.figure()
 
 eth_price_graph = fig.add_subplot(6, 1, 1)
@@ -230,9 +231,31 @@ eth_funding_graph.set_ylabel("funding")
 
 plt.show()
 
+# WHOLE MARKET DATA ------------------
+
+fig = plt.figure()
+
+Wmkt_oi_graph = fig.add_subplot(4, 1, 1)
+Wmkt_funding_graph = fig.add_subplot(4, 1, 2)
+Wmkt_net_oi_chg_graph = fig.add_subplot(4, 1, 3)
+Wmkt_pct_oi_chg_graph = fig.add_subplot(4, 1, 4)
 
 
+Wmkt_oi_data = [i for i in wholeMkT_OI]
+Wmkt_oi_graph.plot(Wmkt_oi_data)
+Wmkt_oi_graph.set_ylabel("whole market OI")
 
+Wmkt_funding_data = [i for i in wholeMkt_OIw_funding]
+Wmkt_funding_graph.plot(Wmkt_funding_data)
+Wmkt_funding_graph.set_ylabel("Whole market funding")
 
+Wmkt_net_oi_chg_data = [i for i in whole_Mkt_net_oi_changes]
+Wmkt_net_oi_chg_graph.plot(Wmkt_net_oi_chg_data)
+Wmkt_net_oi_chg_graph.set_ylabel("Net OI changes")
 
+Wmkt_pct_oi_chg_data = [i for i in whole_Mkt_pct_oi_changes]
+Wmkt_pct_oi_chg_graph.plot(Wmkt_pct_oi_chg_data)
+Wmkt_pct_oi_chg_graph.set_ylabel("Pct OI changes")
+
+plt.show()
 # ----------------------------------------------------------------------------------------------------------------------------------------
