@@ -64,9 +64,9 @@ for i in range(len(btc_array_data)):
 
 
 
-btc_net_oi_changes[0] = btc_net_oi_changes[1]           
-btc_pct_oi_changes[0] = btc_pct_oi_changes[1]           
-btc_price_pct_changes[0] = btc_price_pct_changes[1]     
+btc_net_oi_changes[0] = btc_net_oi_changes[1]           # for loops uses last value from array so 1st value is completely wrong that's why I replace it with most logic one
+btc_pct_oi_changes[0] = btc_pct_oi_changes[1]           # for loops uses last value from array so 1st value is completely wrong that's why I replace it with most logic one
+btc_price_pct_changes[0] = btc_price_pct_changes[1]     # for loops uses last value from array so 1st value is completely wrong that's why I replace it with most logic one
 
 
 # ---- ETH calcs ----
@@ -87,9 +87,9 @@ for i in range(len(eth_array_data)):
 
 
 
-eth_net_oi_changes[0] = eth_net_oi_changes[1]           
-eth_pct_oi_changes[0] = eth_pct_oi_changes[1]          
-eth_price_pct_changes[0] = eth_price_pct_changes[1]     
+eth_net_oi_changes[0] = eth_net_oi_changes[1]           # for loops uses last value from array so 1st value is completely wrong that's why I replace it with most logic one
+eth_pct_oi_changes[0] = eth_pct_oi_changes[1]           # for loops uses last value from array so 1st value is completely wrong that's why I replace it with most logic one
+eth_price_pct_changes[0] = eth_price_pct_changes[1]     # for loops uses last value from array so 1st value is completely wrong that's why I replace it with most logic one
 
 
 # ------------- whole market positions
@@ -142,120 +142,148 @@ whole_Mkt_pct_oi_changes[0] = whole_Mkt_pct_oi_changes[1]   # foor loops uses la
     #print(whole_Mkt_net_oi_changes[i], " whole net oi", i)
     #print(whole_Mkt_pct_oi_changes[i], " whole pct oi", i)
 
-
-
-
 # ---------------------------------------------------------------------------------------------------------------------------------------
 
 
 # --------------------------------------- PLOTING ---------------------------------------------------------------------------------------
 
+def plot_allBtcEthMkt_data():
 # BTC --------------------------------
+    fig = plt.figure()
+
+    plt.subplots_adjust(top = 0.95, bottom=0.05, hspace=0.5)
+
+    btc_price_graph = plt.subplot2grid((6, 1), (0, 0), rowspan=2)
+    btc_oi_graph = plt.subplot2grid((6, 1), (2, 0))
+    btc_pct_oi_cgh_graph = plt.subplot2grid((6, 1), (3, 0))
+    btc_pct_price_chg_graph = plt.subplot2grid((6, 1), (4, 0))
+    btc_funding_graph = plt.subplot2grid((6, 1), (5, 0))
 
 
-fig = plt.figure()
+    btc_price_data = [i[0] for i in btc_array_data]
+    btc_price_graph.plot(btc_price_data)
+    btc_price_graph.set_ylabel("price [USD]")
+    btc_price_graph.grid(alpha=0.35)
 
-btc_price_graph = fig.add_subplot(6, 1, 1)
-btc_oi_graph = fig.add_subplot(6, 1, 2)
-btc_total_oi_chg_graph = fig.add_subplot(6, 1, 3)
-btc_pct_oi_cgh_graph = fig.add_subplot(6, 1, 4)
-btc_pct_price_chg_graph = fig.add_subplot(6, 1, 5)
-btc_funding_graph = fig.add_subplot(6, 1, 6)
+    btc_oi_data = [i[1] for i in btc_array_data]
+    btc_oi_graph.plot(btc_oi_data)
+    btc_oi_graph.set_ylabel("net OI [bn]")
+    btc_oi_graph.grid(alpha=0.35)
 
-btc_price_data = [i[0] for i in btc_array_data]
-btc_price_graph.plot(btc_price_data)
-btc_price_graph.set_ylabel("price")
+    btc_pct_oi_cgh_data = [i for i in btc_pct_oi_changes]
+    btc_pct_oi_cgh_data_x = [i for i in range(len(btc_pct_oi_changes))]
+    btc_pct_oi_cgh_graph.bar(btc_pct_oi_cgh_data_x, btc_pct_oi_cgh_data)
+    btc_pct_oi_cgh_graph.set_ylabel("% OI chg [%]")
+    btc_pct_oi_cgh_graph.grid(alpha=0.35)
 
-btc_oi_data = [i[1] for i in btc_array_data]
-btc_oi_graph.plot(btc_oi_data)
-btc_oi_graph.set_ylabel("net oi")
+    btc_pct_price_chg_data = [i for i in btc_price_pct_changes]
+    btc_pct_price_cgh_data_x = [i for i in range(len(btc_price_pct_changes))]
+    btc_pct_price_chg_graph.bar(btc_pct_price_cgh_data_x ,btc_pct_price_chg_data)
+    btc_pct_price_chg_graph.set_ylabel("% price chg [%]")
+    btc_pct_price_chg_graph.grid(alpha=0.35)
 
-btc_total_oi_chg_data = [i for i in btc_net_oi_changes]
-btc_total_oi_chg_graph.plot(btc_total_oi_chg_data)
-btc_total_oi_chg_graph.set_ylabel("net oi change")
-
-btc_pct_oi_cgh_data = [i for i in btc_pct_oi_changes]
-btc_pct_oi_cgh_graph.plot(btc_pct_oi_cgh_data)
-btc_pct_oi_cgh_graph.set_ylabel("pct oi change")
-
-btc_pct_price_chg_data = [i for i in btc_price_pct_changes]
-btc_pct_price_chg_graph.plot(btc_pct_price_chg_data)
-btc_pct_price_chg_graph.set_ylabel("pct price change")
+    btc_funding_data = [i[2] for i in btc_array_data]
+    btc_funding_graph.plot(btc_funding_data)
+    btc_funding_graph.set_ylabel("funding [%]")
+    btc_funding_graph.grid(alpha=0.35)
 
 
-btc_funding_data = [i[2] for i in btc_array_data]
-btc_funding_graph.plot(btc_funding_data)
-btc_funding_graph.set_ylabel("funding")
+    figManager = plt.get_current_fig_manager()
+    figManager.window.showMaximized()
 
-plt.show()
+    plt.show()
 
-# ------------------------------------
+    # ------------------------------------
 
-# ETH --------------------------------
-
+    # ETH --------------------------------
 
 
-fig = plt.figure()
+    fig = plt.figure()
 
-eth_price_graph = fig.add_subplot(6, 1, 1)
-eth_oi_graph = fig.add_subplot(6, 1, 2)
-eth_total_oi_chg_graph = fig.add_subplot(6, 1, 3)
-eth_pct_oi_cgh_graph = fig.add_subplot(6, 1, 4)
-eth_pct_price_chg_graph = fig.add_subplot(6, 1, 5)
-eth_funding_graph = fig.add_subplot(6, 1, 6)
+    plt.subplots_adjust(top = 0.95, bottom=0.05, hspace=0.5)
 
-eth_price_data = [i[0] for i in eth_array_data]
-eth_price_graph.plot(eth_price_data)
-eth_price_graph.set_ylabel("price")
+    eth_price_graph = plt.subplot2grid((6, 1), (0, 0), rowspan=2)
+    eth_oi_graph = plt.subplot2grid((6, 1), (2, 0))
+    eth_pct_oi_cgh_graph = plt.subplot2grid((6, 1), (3, 0))
+    eth_pct_price_chg_graph = plt.subplot2grid((6, 1), (4, 0))
+    eth_funding_graph = plt.subplot2grid((6, 1), (5, 0))
 
-eth_oi_data = [i[1] for i in eth_array_data]
-eth_oi_graph.plot(eth_oi_data)
-eth_oi_graph.set_ylabel("net oi")
+    eth_price_data = [i[0] for i in eth_array_data]
+    eth_price_graph.plot(eth_price_data)
+    eth_price_graph.set_ylabel("price [USD]")
+    eth_price_graph.grid(alpha=0.35)
 
-eth_total_oi_chg_data = [i for i in eth_net_oi_changes]
-eth_total_oi_chg_graph.plot(eth_total_oi_chg_data)
-eth_total_oi_chg_graph.set_ylabel("net oi change")
+    eth_oi_data = [i[1] for i in eth_array_data]
+    eth_oi_graph.plot(eth_oi_data)
+    eth_oi_graph.set_ylabel("net OI [bn]")
+    eth_oi_graph.grid(alpha=0.35)
 
-eth_pct_oi_cgh_data = [i for i in eth_pct_oi_changes]
-eth_pct_oi_cgh_graph.plot(eth_pct_oi_cgh_data)
-eth_pct_oi_cgh_graph.set_ylabel("pct oi change")
+    eth_pct_oi_cgh_data = [i for i in eth_pct_oi_changes]
+    eth_pct_oi_cgh_data_x = [i for i in range(len(eth_pct_oi_changes))]
+    eth_pct_oi_cgh_graph.bar(eth_pct_oi_cgh_data_x ,eth_pct_oi_cgh_data)
+    eth_pct_oi_cgh_graph.set_ylabel("% OI chg [%]")
+    eth_pct_oi_cgh_graph.grid(alpha=0.35)
 
-eth_pct_price_chg_data = [i for i in eth_price_pct_changes]
-eth_pct_price_chg_graph.plot(eth_pct_price_chg_data)
-eth_pct_price_chg_graph.set_ylabel("pct price change")
+    eth_pct_price_chg_data = [i for i in eth_price_pct_changes]
+    eth_pct_price_cgh_data_x = [i for i in range(len(eth_price_pct_changes))]
+    eth_pct_price_chg_graph.bar(eth_pct_price_cgh_data_x ,eth_pct_price_chg_data)
+    eth_pct_price_chg_graph.set_ylabel("% price chg [%]")
+    eth_pct_price_chg_graph.grid(alpha=0.35)
+
+    eth_funding_data = [i[2] for i in eth_array_data]
+    eth_funding_graph.plot(eth_funding_data)
+    eth_funding_graph.set_ylabel("funding [%]")
+    eth_funding_graph.grid(alpha=0.35)
+
+    figManager = plt.get_current_fig_manager()
+    figManager.window.showMaximized()
+
+    plt.show()
+
+    # WHOLE MARKET DATA ------------------
+
+    fig = plt.figure()
+
+    plt.subplots_adjust(top = 0.95, bottom=0.05, hspace=0.5)
+
+    Wmkt_oi_graph = plt.subplot2grid((5, 1), (0, 0), rowspan=2)
+    Wmkt_funding_graph = plt.subplot2grid((5, 1), (2, 0))
+    Wmkt_net_oi_chg_graph = plt.subplot2grid((5, 1), (3, 0))
+    Wmkt_pct_oi_chg_graph = plt.subplot2grid((5, 1), (4, 0))
 
 
-eth_funding_data = [i[2] for i in eth_array_data]
-eth_funding_graph.plot(eth_funding_data)
-eth_funding_graph.set_ylabel("funding")
+    Wmkt_oi_data = [i for i in wholeMkT_OI]
+    Wmkt_oi_graph.plot(Wmkt_oi_data)
+    Wmkt_oi_graph.set_ylabel("whole market OI [bn]")
+    Wmkt_oi_graph.grid(alpha=0.35)
 
-plt.show()
+    Wmkt_funding_data = [i for i in wholeMkt_OIw_funding]
+    Wmkt_funding_graph.plot(Wmkt_funding_data)
+    Wmkt_funding_graph.set_ylabel("Whole market funding [%]")
+    Wmkt_funding_graph.grid(alpha=0.35)
 
-# WHOLE MARKET DATA ------------------
+    Wmkt_net_oi_chg_data = [i for i in whole_Mkt_net_oi_changes]
+    Wmkt_net_oi_chg_data_x = [i for i in range(len(whole_Mkt_net_oi_changes))]
+    Wmkt_net_oi_chg_graph.bar(Wmkt_net_oi_chg_data_x ,Wmkt_net_oi_chg_data)
+    Wmkt_net_oi_chg_graph.set_ylabel("Net OI changes [bn]")
+    Wmkt_net_oi_chg_graph.grid(alpha=0.35)
 
-fig = plt.figure()
+    Wmkt_pct_oi_chg_data = [i for i in whole_Mkt_pct_oi_changes]
+    Wmkt_pct_oi_chg_data_x = [i for i in range(len(whole_Mkt_pct_oi_changes))]
+    Wmkt_pct_oi_chg_graph.bar(Wmkt_pct_oi_chg_data_x ,Wmkt_pct_oi_chg_data)
+    Wmkt_pct_oi_chg_graph.set_ylabel("Pct OI changes [%]")
+    Wmkt_pct_oi_chg_graph.grid(alpha=0.35)
 
-Wmkt_oi_graph = fig.add_subplot(4, 1, 1)
-Wmkt_funding_graph = fig.add_subplot(4, 1, 2)
-Wmkt_net_oi_chg_graph = fig.add_subplot(4, 1, 3)
-Wmkt_pct_oi_chg_graph = fig.add_subplot(4, 1, 4)
+    figManager = plt.get_current_fig_manager()
+    figManager.window.showMaximized()
 
-
-Wmkt_oi_data = [i for i in wholeMkT_OI]
-Wmkt_oi_graph.plot(Wmkt_oi_data)
-Wmkt_oi_graph.set_ylabel("whole market OI")
-
-Wmkt_funding_data = [i for i in wholeMkt_OIw_funding]
-Wmkt_funding_graph.plot(Wmkt_funding_data)
-Wmkt_funding_graph.set_ylabel("Whole market funding")
-
-Wmkt_net_oi_chg_data = [i for i in whole_Mkt_net_oi_changes]
-Wmkt_net_oi_chg_graph.plot(Wmkt_net_oi_chg_data)
-Wmkt_net_oi_chg_graph.set_ylabel("Net OI changes")
-
-Wmkt_pct_oi_chg_data = [i for i in whole_Mkt_pct_oi_changes]
-Wmkt_pct_oi_chg_graph.plot(Wmkt_pct_oi_chg_data)
-Wmkt_pct_oi_chg_graph.set_ylabel("Pct OI changes")
-
-plt.show()
+    plt.show()
 # ----------------------------------------------------------------------------------------------------------------------------------------
+
+# FUNC CALLS
+
+plot_allBtcEthMkt_data()
+
+#
+
+
