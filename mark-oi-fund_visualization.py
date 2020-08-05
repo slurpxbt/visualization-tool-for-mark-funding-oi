@@ -280,6 +280,39 @@ def plot_allBtcEthMkt_data():
     plt.show()
 # ----------------------------------------------------------------------------------------------------------------------------------------
 
+
+def plot_allBtcEthMkt_data_1h_interval():
+    print("empy")
+
+
+def plot_allBtcEthMkt_data_4h_interval():
+    print("empy")
+
+
+def plot_allBtcEthMkt_data_1D_interval():
+    print("empy")
+
+
+def plot_1D_lookback():
+    print("empy")
+
+
+def plot_3D_lookback():
+    print("empy")
+
+
+def plot_1W_lookback():
+    print("empy")
+
+
+def plot_1W_lookback_1h_interval():
+    print("empy")
+
+
+def plot_1W_lookback_4h_interval():
+    print("empy")
+
+
 # FUNC CALLS
 
 plot_allBtcEthMkt_data()
