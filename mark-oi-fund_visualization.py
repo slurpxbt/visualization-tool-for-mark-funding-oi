@@ -8,8 +8,10 @@ import matplotlib.pyplot as plt
 # --------------------------------------------------
 
 # ------------ data file paths
-btc_data_path = "D:/files/Finance/trading/skripte/unfinished projects/visualization tool for oi-mark-funding/data storage/avgMark_cumOI_oiWfunding_storage.txt"
-eth_data_path = "D:/files/Finance/trading/skripte/unfinished projects/visualization tool for oi-mark-funding/data storage/avgMark_cumOI_oiWfunding_storage_eth.txt"
+folder_path = "your path"
+
+btc_data_path = f"{folder_path}/unfinished projects/visualization tool for oi-mark-funding/data storage/avgMark_cumOI_oiWfunding_storage.txt"
+eth_data_path = f"{folder_path}/skripte/unfinished projects/visualization tool for oi-mark-funding/data storage/avgMark_cumOI_oiWfunding_storage_eth.txt"
 # ---------------------------
 
 
